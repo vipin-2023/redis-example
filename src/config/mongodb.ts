@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import redis from 'redis';
 
-const MONGODB_URI = 'mongodb://localhost:27017/todoapp';
+const redisClient = redis.createClient();
 
-mongoose.connect(MONGODB_URI);
-
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB');
+redisClient.on('error', (error) => {
+  console.error('Redis connection error:', error);
 });
 
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+redisClient.on('connect', () => {
+  console.log('Connected to Redis');
 });
+
+export default redisClient;

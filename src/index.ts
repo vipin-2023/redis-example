@@ -1,7 +1,15 @@
-import app from './app';
+import express from 'express';
+import dotenv from 'dotenv';
+import todoRoutes from './routes/todoRoutes';
 
-const PORT = process.env.PORT || 3000;
+dotenv.config();
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use('/todos', todoRoutes);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
